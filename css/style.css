@@ -58,6 +58,10 @@
     font-size: x-small;
     font-weight: bold;
 }
+.textSmall2 {
+    font-size: small;
+    font-weight: bold;
+}
 
 .imgPicture{
     width:230px;

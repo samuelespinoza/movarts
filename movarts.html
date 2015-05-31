@@ -103,12 +103,12 @@
                 {{labelTextLastVisits}}:
                 <br />
                 <div layout="row" layout-wrap layout-align="center" class="withBorder padd10">
-                    <div ng-repeat="item in lastVisit | filter:{ show: true }" style="text-align:center;cursor:pointer;" flex="20" ng-click="selectMedia(item.id,item.type,item.name,item.pic,true)">
+                    <div ng-repeat="item in lastVisit | filter:{ show: true }" class="centerText cursorPointer" flex="20" ng-click="selectMedia(item.id,item.type,item.name,item.pic,true)">
                         <div flex>
                             <img ng-src="{{item.pic}}" alt="{{item.pic}}" err-src="images/logo.png" class="classImgLastVisit">
                         </div>
                         <div flex>
-                            <span style="font-size:small;font-weight:bold;">{{item.name}}</span>
+                            <span class="textSmall2">{{item.name}}</span>
                         </div>
                     </div>
                 </div>
@@ -167,12 +167,12 @@
             {{labelTextCredits}}:
             <br />
             <div layout="row" layout-wrap layout-align="center" class="withBorder padd10">
-                <div ng-repeat="item in listCredits" style="text-align:center;cursor:pointer;" flex="20" ng-click="selectMedia(item.id,item.type,item.name,item.pic,true)">
+                <div ng-repeat="item in listCredits" class="centerText cursorPointer" flex="20" ng-click="selectMedia(item.id,item.type,item.name,item.pic,true)">
                     <div flex>
                         <img ng-src="{{item.pic}}" alt="{{item.pic}}" err-src="images/logo.png" class="classImgLastVisit">
                     </div>
                     <div flex>
-                        <span style="font-size:small;font-weight:bold;">{{item.name}}</span>
+                        <span class="textSmall2">{{item.name}}</span>
                     </div>
                 </div>
             </div>
