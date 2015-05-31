@@ -1,0 +1,200 @@
+﻿<!doctype html>
+<html ng-app="MovArts">
+<head>
+    <title>MovArts</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src='js/angular-material.js'></script>
+    <script src="js/lang.js"></script>
+    <script src="js/app.js"></script>
+    <link href='css/angular-material.css' rel='stylesheet' type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div ng-controller="controlApp" class="centerText">
+        <div class="tituLang">
+            <md-button ng-click="englishVersion()">English</md-button>
+            <md-button ng-click="spanishVersion()">Español</md-button>
+        </div>
+
+        <md-toolbar class="md-theme-indigo" layout="row" layout-align="right">
+            <div layout="column" layout-align="center center" class="padd5">
+                <img src="images/logow.png" alt="Logo" class="logoWeb cursorPointer" ng-click="homeButton()" />
+                <span class="cursorPointer" ng-click="homeButton()">{{titleApp}}</span>
+            </div>
+            <md-button ng-click="homeButton()">{{labelTextButtonHome}}</md-button>
+            <md-button ng-click="popularMovies()">{{labelTextButtonPopularMovies}}</md-button>
+            <md-button ng-click="popularActors()">{{labelTextButtonPopularActors}}</md-button>
+        </md-toolbar>
+
+        <div class="divCentral">
+            <div class="centerText" layout="row" layout-align="center">
+                <h3>{{labelTextTitle}}</h3>
+                <div layout="column" layout-align="center center" class="padd5">
+                    <img src="images/logo.png" alt="Search" class="logoWeb"/>
+                </div>
+            </div>
+
+            <div class="withBorder divSearch" ng-hide="hidePanelSearch">
+                {{labelTextTitleSearch}}
+                <div layout="row" layout-wrap>
+                    <div flex="80">
+                        <md-input-container>
+                            <label>{{labelTextSearch}}</label>
+                            <input type="text" ng-model="inputTextSearch" ng-enter="search()">
+                        </md-input-container>
+                    </div>
+                    <div flex>
+                        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="searchTypeMovies" ng-change="search()">
+                            {{labelTextMovies}}
+                        </md-switch>
+                        <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="searchTypeActors" ng-change="search()">
+                            {{labelTextActors}}
+                        </md-switch>
+                    </div>
+                </div>
+                <md-content>
+                    <section layout="row" layout-align="center center" class="backgroundColorDiv">
+                        <md-button class="md-raised md-primary" ng-click="search()">{{labelTextButtonSearch}}</md-button>
+                        <img src="images/search.png" alt="Search" ng-click="search()" class="classImgSearch" />
+                    </section>
+                </md-content>
+            </div>
+
+            <div layout="column" layout-wrap layout-align="center center" ng-hide="hideSearchingPanel">
+                <div flex>
+                    {{labelTextSearching}}
+                </div>
+                <div flex>
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </div>
+
+            <div ng-hide="hideList" class="withBorder">
+                <md-toolbar md-scroll-shrink>
+                    <div class="md-toolbar-tools">
+                        <h3>
+                            <span>{{labelTextTitleListResults}}</span>
+                        </h3>
+                    </div>
+                </md-toolbar>
+                <md-subheader class="md-no-sticky">{{resultText}}</md-subheader>
+                <md-list>
+                    <md-list-item class="md-2-line" ng-repeat="item in result" ng-click="selectMedia(item.id,item.media_type,item.nameshow,item.picture)">
+                        <img ng-src="{{item.picture}}" alt="{{item.picture}}" class="md-avatar" err-src="images/logo.png">
+                        <div class="md-list-item-text">
+                            <h3>{{item.nameshow}}</h3>
+                            <h4>{{item.mediatype}}</h4>
+                        </div>
+                        <md-divider inset></md-divider>
+                    </md-list-item>
+                </md-list>
+                <div layout="row" layout-wrap layout-align="center center" ng-hide="hidePanelPage">
+                    <md-button ng-click="firstPage()" ng-hide="hideButtonLastPage">{{labelTextButtonFirstPage}}</md-button>
+                    <md-button ng-click="prevPage()">{{labelTextButtonPreviusPage}}</md-button>
+                    <span class="textSmall">{{labelTextPage}} {{pageShowResults}} {{labelTextOf}} {{totalPageShowResults}}</span>
+                    <md-button ng-click="nextPage()">{{labelTextButtonNextPage}}</md-button>
+                    <md-button ng-click="lastPage()" ng-hide="hideButtonFirstPage">{{labelTextButtonLastPage}}</md-button>
+                </div>
+            </div>
+
+            <div ng-hide="hidePanelLastMedia" class="centerText">
+                {{labelTextLastVisits}}:
+                <br />
+                <div layout="row" layout-wrap layout-align="center" class="withBorder padd10">
+                    <div ng-repeat="item in lastVisit | filter:{ show: true }" style="text-align:center;cursor:pointer;" flex="20" ng-click="selectMedia(item.id,item.type,item.name,item.pic,true)">
+                        <div flex>
+                            <img ng-src="{{item.pic}}" alt="{{item.pic}}" err-src="images/logo.png" class="classImgLastVisit">
+                        </div>
+                        <div flex>
+                            <span style="font-size:small;font-weight:bold;">{{item.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-hide="hidePanelInfoMovie" class="backgroundColorDiv">
+            <div layout="row" class="textAlighLeft">
+                <div class="padd10">
+                    <img ng-src="{{resultMedia.poster_path}}" alt="{{resultMedia.poster_path}}" err-src="images/movie.png" class="imgPicture">
+                </div>
+                <div flex class="padd10">
+                    <div flex>
+                        <div class="classTitle">{{resultMedia.title}}</div>
+                        {{resultMedia.tagline}}
+                    </div>
+                    <div flex>
+                        <a href="{{resultMedia.homepage}}" target="_blank">{{resultMedia.homepage}}</a>
+                    </div>
+                    <div flex>
+                        <h5>{{labelTextReleaseDate}}: {{resultMedia.release_date}} {{labelTextVoteAverage}}: {{resultMedia.vote_average}}</h5>
+                    </div>
+                    <div flex>
+                        {{resultMedia.overview}}
+                    </div>
+                </div>
+            </div>
+            <md-button ng-click="backOption()">{{labelTextButtonBack}}</md-button>
+        </div>
+
+        <div ng-hide="hidePanelInfoPerson" class="backgroundColorDiv">
+            <div layout="row" class="textAlighLeft">
+                <div class="padd10">
+                    <img ng-src="{{resultMedia.profile_path}}" alt="{{resultMedia.profile_path}}" err-src="images/person.png" class="imgPicture">
+                </div>
+                <div flex class="padd10">
+                    <div flex>
+                        <h3>{{resultMedia.name}}</h3>
+                    </div>
+                    <div flex>
+                        <a href="{{resultMedia.homepage}}" target="_blank">{{resultMedia.homepage}}</a>
+                    </div>
+                    <div flex>
+                        <h5>{{labelTextBirthday}}: {{resultMedia.birthday}} {{labelTextPlaceBirth}}: {{resultMedia.place_of_birth}}</h5>
+                    </div>
+                    <div flex>
+                        {{resultMedia.biography}}
+                    </div>
+                </div>
+            </div>
+            <md-button ng-click="backOption()">{{labelTextButtonBack}}</md-button>
+        </div>
+
+        <div ng-hide="hidePanelCredits" class="centerText">
+            {{labelTextCredits}}:
+            <br />
+            <div layout="row" layout-wrap layout-align="center" class="withBorder padd10">
+                <div ng-repeat="item in listCredits" style="text-align:center;cursor:pointer;" flex="20" ng-click="selectMedia(item.id,item.type,item.name,item.pic,true)">
+                    <div flex>
+                        <img ng-src="{{item.pic}}" alt="{{item.pic}}" err-src="images/logo.png" class="classImgLastVisit">
+                    </div>
+                    <div flex>
+                        <span style="font-size:small;font-weight:bold;">{{item.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div layout-align="center end">
+            <div layout="row" layout-align="center center">
+                <div layout="column" layout-align="center center" class="padd5">
+                    <img src="images/logo.png" alt="Logo" class="logoWeb" />
+                    <span class="textSmall">{{titleApp}}</span>
+                </div>
+                <div layout="column" layout-align="center center" class="padd5">
+                    <img src="images/sev.jpg" alt="SEV" class="logoWeb" />
+                    <span class="textSmall">{{creator}}</span>
+                </div>
+            </div>
+            <div>
+                <span class="textSmall">{{made}}</span>
+            </div>
+        </div>
+
+        <input type="text" ng-model="resultTest" ng-hide="hideTextTesting">
+    </div>
+</body>
+</html>

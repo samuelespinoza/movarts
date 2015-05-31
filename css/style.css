@@ -1,18 +1,81 @@
 @font-face {
-  font-family: 'RobotoDraft';
-  font-style: normal;
-  font-weight: 400;
-  src: local('RobotoDraft'), local('RobotoDraft-Regular'), url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni4gp9Q8gbYrhqGlRav_IXfk.woff2) format('woff2'), url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni7rIa-7acMAeDBVuclsi6Gc.woff) format('woff');
+    font-family: 'RobotoDraft';
+    font-style: normal;
+    font-weight: 400;
+    src: local('RobotoDraft'), local('RobotoDraft-Regular'), url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni4gp9Q8gbYrhqGlRav_IXfk.woff2) format('woff2'), url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni7rIa-7acMAeDBVuclsi6Gc.woff) format('woff');
 }
 
-.divCentral{
-    display:inline-block;width:600px;text-align:left;
+.backgroundColorDiv {
+    background-color: #C6CFDE;
 }
 
-.centerText{
-    text-align:center;
+.divCentral {
+    display: inline-block;
+    width: 700px;
+    text-align: left;
 }
 
-.withBorder{
-    border:solid;border-width:1px;border-color:#E0E0E0;
+.centerText {
+    text-align: center;
+}
+
+.withBorder {
+    border: solid;
+    border-width: 1px;
+    border-color: #E0E0E0;
+}
+
+.divSearch {
+    padding: 10px;
+    background-color: #C6CFDE;
+}
+
+.classImgSearch {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.tituLang {
+    text-align: right;
+    padding: 10px;
+}
+
+.padd5 {
+    padding:5px;
+}
+
+.logoWeb {
+    height: 30px;
+    width: 30px;
+}
+
+.cursorPointer{
+    cursor:pointer;
+}
+
+.textSmall {
+    font-size: x-small;
+    font-weight: bold;
+}
+
+.imgPicture{
+    width:230px;
+}
+
+.textAlighLeft{
+    text-align:left;
+}
+
+.padd10{
+    padding:10px;
+}
+
+.classTitle{
+    font-size:x-large;
+    font-weight:bold;
+}
+
+.classImgLastVisit{
+    width:50px;
 }
